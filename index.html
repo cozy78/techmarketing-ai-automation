@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMarketing AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            background-attachment: fixed;
+        }
+        
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: none;
+        }
+        
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 80px 40px;
+            color: white;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #000000;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tools-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tools-nav {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            overflow-x: auto;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .tools-nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            padding: 0 40px;
+        }
+        
+        .tool-tab {
+            flex: none; 
+            min-width: 250px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border: none;
+            font-size: 1em;
+        }
+        
+        .tool-tab:hover {
+            color: #334155;
+            background: #f1f5f9;
+        }
+        
+        .tool-tab.active {
+            color: #667eea;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-color: #667eea;
+        }
+        
+        .tool-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .tool-section {
+            display: none;
+        }
+        
+        .tool-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .section-description {
+            font-size: 1.2em;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .form-grid.two-column {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 1em;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-field.textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-trigger {
+            position: relative;
+            cursor: pointer;
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+        
+        .custom-select-trigger::after {
+            content: '';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 8px;
+            height: 8px;
+            border-bottom: 2px solid #64748b;
+            border-right: 2px solid #64748b;
+            transition: transform 0.3s ease;
+        }
+
+        .custom-select.open .custom-select-trigger {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .custom-select.open .custom-select-trigger::after {
+            transform: translateY(-50%) rotate(-135deg);
+        }
+
+        .custom-options {
+            position: absolute;
+            top: 110%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            z-index: 101;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .custom-select.open .custom-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .custom-option {
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid #e5e7eb; 
+        }
+
+        .custom-option:last-child {
+            border-bottom: none;
+        }
+
+        .custom-option:hover,
+        .custom-option.selected {
+            background-color: #f1f5f9;
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: block;
+            min-width: 250px;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results-section {
+            margin-top: 50px;
+        }
+        
+        .result-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-header {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .result-content {
+            color: #374151;
+            line-height: 1.7;
+            white-space: pre-line;
+            font-size: 1em;
+        }
+        
+        .score-display {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            margin: 30px 0;
+        }
+        
+        .score-number {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .score-label {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card h4 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .info-card ul {
+            color: #4b5563;
+            padding-left: 20px;
+        }
+        
+        .info-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 18px;
+            margin: 30px 0;
+            display: none;
+            padding: 20px;
+        }
+        
+        .platform-content {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            background: #fafbfc;
+        }
+        
+        .platform-header {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .linkedin { background: #0077b5; }
+        .twitter { background: #1da1f2; }
+        .facebook { background: #4267b2; }
+        .instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        
+        .character-count {
+            font-size: 0.9em;
+            color: #6b7280;
+            text-align: right;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .campaign-preview {
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        .campaign-preview h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid.two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+            
+            .nav {
+                padding: 0 20px;
+            }
+            
+            .tool-content {
+                padding: 40px 20px;
+            }
+            
+            .tools-nav-inner {
+                padding: 0 20px;
+            }
+            
+            .tools-nav {
+                overflow-x: auto; 
+            }
+            
+            .tool-tab {
+                min-width: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <nav class="nav">
+                <a href="#" class="logo">TechMarketing AI</a>
+                <ul class="nav-links">
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Preise</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero-section">
+            <div class="hero-badge">Willkommen bei TechMarketing AI</div>
+            <h1 class="hero-title">Revolutionieren Sie Ihr<br>Marketing mit KI-Power</h1>
+            <p class="hero-subtitle">
+                Steigern Sie Ihre Kampagnen-Performance, erhöhen Sie den ROI und erschließen Sie 
+                datengesteuerte Erkenntnisse mit unseren fortschrittlichen KI-Marketing-Lösungen.
+            </p>
+            <a href="#tools" class="cta-button">Jetzt starten</a>
+        </section>
+        
+        <div class="tools-container" id="tools">
+            <nav class="tools-nav">
+                <div class="tools-nav-inner">
+                    <button class="tool-tab active" onclick="switchTab('content-generator')">
+                        Content Generator
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('lead-scoring')">
+                        Lead Scoring
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('email-optimizer')">
+                        E-Mail Optimizer
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('social-generator')">
+                        Social Media Suite
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="tool-content">
+                <div id="content-generator" class="tool-section active">
+                    <div class="section-header">
+                        <h2 class="section-title">Content Generator</h2>
+                        <p class="section-description">
+                            Wandelt technische Produktdaten in überzeugende, zielgruppenspezifische Marketing-Inhalte um!
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Beispiel-Produktbeschreibungen</h4>
+                        <ul>
+                            <li>Industrieroboter, 6 Achsen, 20kg Traglast, 0.1mm Präzision, Automobilindustrie</li>
+                            <li>Cloud-basierte CAD-Software, 3D-Modellierung, Simulation, Kollaboration, Maschinenbau</li>
+                            <li>KI-gestützte Qualitätskontrolle, Bildverarbeitung, 99.5% Genauigkeit, Echtzeitanalyse</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="productDescription">Produktbeschreibung</label>
+                                <textarea id="productDescription" class="input-field textarea" placeholder="Beschreiben Sie Ihr technisches Produkt detailliert..."></textarea>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="targetAudience">Zielgruppe</label>
+                                <select id="targetAudience" class="input-field">
+                                    <option value="technical">Technische Entscheider</option>
+                                    <option value="management">Management/C-Level</option>
+                                    <option value="procurement">Einkauf/Beschaffung</option>
+                                    <option value="enduser">End-User</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="industry">Branche</label>
+                                <select id="industry" class="input-field">
+                                    <option value="automotive">Automotive</option>
+                                    <option value="manufacturing">Fertigungsindustrie</option>
+                                    <option value="aerospace">Luft- & Raumfahrt</option>
+                                    <option value="medical">Medizintechnik</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="contentTone">Tonalität</label>
+                                <select id="contentTone" class="input-field">
+                                    <option value="professional">Professionell & Sachlich</option>
+                                    <option value="innovative">Innovativ & Zukunftsorientiert</option>
+                                    <option value="trustworthy">Vertrauensvoll & Etabliert</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="urgency">Dringlichkeit</label>
+                                <select id="urgency" class="input-field">
+                                    <option value="low">Informativ</option>
+                                    <option value="medium">Moderat</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="focusMetric">Hauptargument</label>
+                                <select id="focusMetric" class="input-field">
+                                    <option value="efficiency">Effizienzsteigerung</option>
+                                    <option value="cost">Kosteneinsparung</option>
+                                    <option value="quality">Qualitätsverbesserung</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="generateContent()">
+                        Marketing-Content generieren
+                    </button>
+                    
+                    <div class="loading" id="contentLoading">
+                        KI analysiert Produktdaten und erstellt zielgruppenspezifische Inhalte...
+                    </div>
+                    
+                    <div id="contentResults" class="results-section"></div>
+                </div>
+                
+                <div id="lead-scoring" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Lead Scoring</h2>
+                        <p class="section-description">
+                            Bewertet potenzielle Kunden basierend auf Verhalten, Firmendaten und Interaktionen
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Scoring-Faktoren</h4>
+                        <ul>
+                            <li>Unternehmensgröße & Branche</li>
+                            <li>Website-Verhalten & Downloads</li>
+                            <li>E-Mail-Engagement</li>
+                            <li>Demografische Daten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="companyName">Unternehmens-E-Mail</label>
+                                <input type="text" id="companyName" class="input-field" placeholder="z.B. info@bmw.de">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="companySize">Unternehmensgröße</label>
+                                <select id="companySize" class="input-field">
+                                    <option value="startup">Startup (1-50 MA)</option>
+                                    <option value="small">Klein (51-200 MA)</option>
+                                    <option value="medium">Mittel (201-1000 MA)</option>
+                                    <option value="large">Groß (1000+ MA)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="websiteVisits">Website-Besuche</label>
+                                <select id="websiteVisits" class="input-field">
+                                    <option value="0">Keine</option>
+                                    <option value="1-3">1-3 Besuche</option>
+                                    <option value="4-10">4-10 Besuche</option>
+                                    <option value="10+">Mehr als 10</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="emailEngagement">E-Mail Engagement</label>
+                                <select id="emailEngagement" class="input-field">
+                                    <option value="none">Keine E-Mails</option>
+                                    <option value="low">Niedrig</option>
+                                    <option value="medium">Mittel</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="calculateLeadScore()">
+                        Lead Score berechnen
+                    </button>
+                    
+                    <div class="loading" id="scoringLoading">
+                        KI analysiert Lead-Daten und berechnet Conversion-Wahrscheinlichkeit...
+                    </div>
+                    
+                    <div id="scoringResults" class="results-section"></div>
+                </div>
+                
+                <div id="email-optimizer" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">E-Mail Optimizer</h2>
+                        <p class="section-description">
+                            Personalisiert automatisch E-Mail-Inhalte basierend auf Kundenverhalten
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Personalisierungsoptionen</h4>
+                        <ul>
+                            <li>Branchen-spezifische Ansprache</li>
+                            <li>Rollen-basierte Inhalte</li>
+                            <li>A/B-Test Varianten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="emailProduct">Produkt/Service</label>
+                                <input type="text" id="emailProduct" class="input-field" placeholder="z.B. Industrieroboter">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="recipientRole">Empfänger-Rolle</label>
+                                <select id="recipientRole" class="input-field">
+                                    <option value="technical">Technische Entscheider</option>
+                                    <option value="business">Business Entscheider</option>
+                                    <option value="user">End-User</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="customerStage">Customer Journey</label>
+                                <select id="customerStage" class="input-field">
+                                    <option value="cold">Cold Lead</option>
+                                    <option value="warm">Warm Lead</option>
+                                    <option value="hot">Hot Lead</option>
+                                    <option value="customer">Bestandskunde</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="urgencyLevel">Dringlichkeit</label>
+                                <select id="urgencyLevel" class="input-field">
+                                    <option value="low">Niedrig</option>
+                                    <option value="medium">Mittel</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="optimizeEmail()">
+                        E-Mail-Kampagne optimieren
+                    </button>
+                    
+                    <div class="loading" id="emailLoading">
+                        KI optimiert E-Mail-Inhalte basierend auf Kundenprofil...
+                    </div>
+                    
+                    <div id="emailResults" class="results-section"></div>
+                </div>
+                
+                <div id="social-generator" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Social Media Suite</h2>
+                        <p class="section-description">
+                            Erstellt optimierte Posts für verschiedene Social Media Plattformen
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Unterstützte Plattformen</h4>
+                        <ul>
+                            <li>LinkedIn (B2B-fokussiert)</li>
+                            <li>Twitter/X (prägnant)</li>
+                            <li>Facebook (engagement-orientiert)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="socialContent">Basis-Content</label>
+                                <textarea id="socialContent" class="input-field textarea" placeholder="z.B. Unser neuer Industrieroboter revolutioniert die Fertigung..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="socialGoal">Content-Ziel</label>
+                                <select id="socialGoal" class="input-field">
+                                    <option value="awareness">Brand Awareness</option>
+                                    <option value="engagement">Engagement</option>
+                                    <option value="leads">Lead-Generierung</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="generateSocialContent()">
+                        Multi-Platform Content erstellen
+                    </button>
+                    
+                    <div class="loading" id="socialLoading">
+                        KI erstellt plattform-optimierte Posts...
+                    </div>
+                    
+                    <div id="socialResults" class="results-section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
+            event.target.classList.add('active'); 
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function showLoading(loadingElementId) {
+            document.getElementById(loadingElementId).style.display = 'block';
+            document.querySelectorAll('.action-button').forEach(button => button.disabled = true);
+        }
+
+        function hideLoading(loadingElementId) {
+            document.getElementById(loadingElementId).style.display = 'none';
+            document.querySelectorAll('.action-button').forEach(button => button.disabled = false);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('select.input-field').forEach(function(selectElement) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'custom-select-wrapper';
+                selectElement.parentNode.insertBefore(wrapper, selectElement);
+                
+                const customSelect = document.createElement('div');
+                customSelect.className = 'custom-select';
+                wrapper.appendChild(customSelect);
+
+                selectElement.style.display = 'none';
+                customSelect.appendChild(selectElement);
+
+                const trigger = document.createElement('div');
+                trigger.className = 'custom-select-trigger';
+                trigger.textContent = selectElement.options[selectElement.selectedIndex].textContent;
+                customSelect.appendChild(trigger);
+                
+                const options = document.createElement('div');
+                options.className = 'custom-options';
+                
+                Array.from(selectElement.options).forEach(function(optionElement, index) {
+                    const customOption = document.createElement('div');
+                    customOption.className = 'custom-option';
+                    customOption.textContent = optionElement.textContent;
+                    customOption.dataset.value = optionElement.value;
+
+                    if (selectElement.selectedIndex === index) {
+                        customOption.classList.add('selected');
+                    }
+                    
+                    customOption.addEventListener('click', function() {
+                        const previouslySelected = options.querySelector('.custom-option.selected');
+                        if (previouslySelected) {
+                            previouslySelected.classList.remove('selected');
+                        }
+                        this.classList.add('selected');
+                        trigger.textContent = this.textContent;
+                        selectElement.value = this.dataset.value;
+                        customSelect.classList.remove('open');
+                    });
+                    
+                    options.appendChild(customOption);
+                });
+                
+                customSelect.appendChild(options);
+                
+                trigger.addEventListener('click', function() {
+                    customSelect.classList.toggle('open');
+                });
+            });
+
+            window.addEventListener('click', function(e) {
+                document.querySelectorAll('.custom-select').forEach(function(select) {
+                    if (!select.contains(e.target)) {
+                        select.classList.remove('open');
+                    }
+                });
+            });
+        });
+
+        // --- NEU: Make.com Webhook Konfiguration ---
+        const MAKE_WEBHOOKS = {
+            leadScoring: 'https://hook.eu2.make.com/3imx9avl2lk9lr8yugjopzknv339977y',
+            contentGenerated: 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID_2', 
+            emailOptimized: 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID_3',
+            socialContent: 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID_4'
+        };
+
+        async function sendToMake(webhookUrl, data) {
+            try {
+                const response = await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        timestamp: new Date().toISOString(),
+                        source: 'TechMarketing_AI',
+                        tool_version: '1.0',
+                        ...data
+                    })
+                });
+                
+                if (response.ok) {
+                    showMakeSuccess();
+                    return await response.json();
+                }
+            } catch (error) {
+                console.error('Make webhook error:', error);
+            }
+        }
+
+        function showMakeSuccess() {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed; top: 20px; right: 20px; background: #6366f1; 
+                color: white; padding: 15px 20px; border-radius: 8px; z-index: 1000;
+                font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+            `;
+            notification.textContent = '⚡ Make.com Scenario ausgelöst!';
+            document.body.appendChild(notification);
+            setTimeout(() => notification.remove(), 3000);
+        }
+        // --- Ende der Make.com Konfiguration ---
+
+        // Content Generator
+        function generateContent() {
+            const productDesc = document.getElementById('productDescription').value.trim();
+            const targetAudience = document.getElementById('targetAudience').value;
+            const industry = document.getElementById('industry').value;
+            const contentTone = document.getElementById('contentTone').value;
+            const urgency = document.getElementById('urgency').value;
+            const focusMetric = document.getElementById('focusMetric').value;
+            const resultsDiv = document.getElementById('contentResults');
+            
+            if (!productDesc) {
+                alert('Bitte geben Sie eine Produktbeschreibung ein!');
+                return;
+            }
+            
+            // Webhook Aufruf
+            sendToMake(MAKE_WEBHOOKS.contentGenerated, { productDesc, targetAudience, industry, contentTone, urgency, focusMetric });
+
+            showLoading('contentLoading');
+            resultsDiv.innerHTML = ''; 
+
+            setTimeout(() => {
+                const generatedText = `
+                    <div class="result-card">
+                        <h3 class="result-header">Marketing-Beschreibung</h3>
+                        <p class="result-content">
+                            Revolutionäre Lösung für Ihre ${industry}-Industrie: ${productDesc}
+                            Maßgeschneidert für ${targetAudience} mit ${contentTone} Tonalität und Fokus auf ${focusMetric}.
+                            Unsere fortschrittliche Technologie bietet:
+                            • Höchste Präzision und Zuverlässigkeit
+                            • Nachgewiesene Effizienzsteigerung und Kosteneinsparungen
+                            • Nahtlose Integration in bestehende Systeme
+                            • Deutsche Premium-Qualität mit 24/7 Support
+                            Handeln Sie jetzt, um Ihre ${focusMetric} zu maximieren! Fordern Sie noch heute eine kostenlose Beratung an!
+                        </p>
+                    </div>
+                `;
+                resultsDiv.innerHTML = generatedText;
+                hideLoading('contentLoading');
+            }, 2000);
+        }
+
+        // Lead Scoring
+        function calculateLeadScore() {
+            const companyEmail = document.getElementById('companyName').value.trim();
+            const companySize = document.getElementById('companySize').value;
+            const websiteVisits = document.getElementById('websiteVisits').value;
+            const emailEngagement = document.getElementById('emailEngagement').value;
+            const resultsDiv = document.getElementById('scoringResults');
+
+            if (!companyEmail) {
+                alert('Bitte geben Sie einen Unternehmens-E-Mail ein!');
+                return;
+            }
+
+            // SCORE ERST BERECHNEN, DANN SENDEN
+    let score = 0;
+    if (companySize === 'large') score += 30;
+    else if (companySize === 'medium') score += 20;
+    else if (companySize === 'small') score += 10;
+    else if (companySize === 'startup') score += 5;
+
+    if (websiteVisits === '10+') score += 40;
+    else if (websiteVisits === '4-10') score += 25;
+    else if (websiteVisits === '1-3') score += 10;
+
+    if (emailEngagement === 'high') score += 30;
+    else if (emailEngagement === 'medium') score += 15;
+    else if (emailEngagement === 'low') score += 5;
+
+    // PRIORITÄT BESTIMMEN
+    let priority = '';
+    let scoreDescription = '';
+    if (score >= 80) {
+        priority = 'HOT';
+        scoreDescription = 'Sehr hohes Potenzial (Hot Lead)';
+    } else if (score >= 50) {
+        priority = 'WARM';
+        scoreDescription = 'Hohes Potenzial (Warm Lead)';
+    } else {
+        priority = 'COLD';
+        scoreDescription = 'Mäßiges Potenzial (Cold Lead)';
+    }
+
+            // Webhook Aufruf
+            // Company Name aus E-Mail extrahieren
+const company = companyEmail.includes('@') ? companyEmail.split('@')[1].split('.')[0] : companyEmail;
+
+sendToMake(MAKE_WEBHOOKS.leadScoring, { 
+    email: companyEmail,  // Für HubSpot
+    company: company,     // Extrahiert aus E-Mail
+    score: score,                    // ← NEU
+    priority: priority,              // ← NEU  
+    scoreDescription: scoreDescription, // ← NEU
+    companySize, 
+    websiteVisits, 
+    emailEngagement 
+});
+            showLoading('scoringLoading');
+            resultsDiv.innerHTML = '';
+
+            setTimeout(() => {
+                let score = 0;
+                if (companySize === 'large') score += 30;
+                else if (companySize === 'medium') score += 20;
+                else if (companySize === 'small') score += 10;
+
+                if (websiteVisits === '10+') score += 40;
+                else if (websiteVisits === '4-10') score += 25;
+                else if (websiteVisits === '1-3') score += 10;
+
+                if (emailEngagement === 'high') score += 30;
+                else if (emailEngagement === 'medium') score += 15;
+                else if (emailEngagement === 'low') score += 5;
+
+                let scoreDescription = '';
+                if (score >= 80) scoreDescription = 'Sehr hohes Potenzial (Hot Lead)';
+                else if (score >= 50) scoreDescription = 'Hohes Potenzial (Warm Lead)';
+                else scoreDescription = 'Mäßiges Potenzial (Cold Lead)';
+
+                const result = `
+                    <div class="score-display">
+                        <div class="score-number">${score}</div>
+                        <div class="score-label">Lead Score</div>
+                    </div>
+                    <div class="result-card">
+                        <h3 class="result-header">Empfehlung</h3>
+                        <p class="result-content">Basierend auf den Eingaben ist der Lead für "${companyName}" ein ${scoreDescription}.</p>
+                    </div>
+                `;
+                resultsDiv.innerHTML = result;
+                hideLoading('scoringLoading');
+            }, 2000);
+        }
+
+        // Email Optimizer
+        function optimizeEmail() {
+            const emailProduct = document.getElementById('emailProduct').value.trim();
+            const recipientRole = document.getElementById('recipientRole').value;
+            const customerStage = document.getElementById('customerStage').value;
+            const urgencyLevel = document.getElementById('urgencyLevel').value;
+            const resultsDiv = document.getElementById('emailResults');
+
+            if (!emailProduct) {
+                alert('Bitte geben Sie ein Produkt/Service für die E-Mail ein!');
+                return;
+            }
+            
+            // Webhook Aufruf
+            sendToMake(MAKE_WEBHOOKS.emailOptimized, { emailProduct, recipientRole, customerStage, urgencyLevel });
+
+            showLoading('emailLoading');
+            resultsDiv.innerHTML = '';
+
+            setTimeout(() => {
+                let subjectLine = '';
+                let emailBody = '';
+
+                switch (customerStage) {
+                    case 'cold':
+                        subjectLine = `Entdecken Sie, wie ${emailProduct} Ihr Geschäft transformiert!`;
+                        emailBody = `Sehr geehrte/r Entscheidungsträger/in,\n\nwir möchten Ihnen ${emailProduct} vorstellen – eine Lösung, die darauf ausgelegt ist, Ihre Herausforderungen zu meistern.\n\nErfahren Sie, wie Sie mit ${emailProduct} Ihre Prozesse optimieren können.\nWir freuen uns auf Ihre Kontaktaufnahme.`;
+                        break;
+                    case 'warm':
+                        subjectLine = `Neue Einblicke zu ${emailProduct} – speziell für Sie!`;
+                        emailBody = `Sehr geehrte/r ${recipientRole}-Entscheider/in,\n\nwir freuen uns über Ihr Interesse an ${emailProduct}. Basierend auf Ihren Präferenzen haben wir exklusive Informationen zusammengestellt, die Ihnen helfen, das volle Potenzial zu erkennen.\n\nKlicken Sie hier für eine personalisierte Demo: [Link zur Demo]\nWir sind überzeugt, dass ${emailProduct} Ihre Erwartungen übertreffen wird.`;
+                        break;
+                    case 'hot':
+                        subjectLine = `Ihr exklusives Angebot für ${emailProduct} – nur für kurze Zeit!`;
+                        emailBody = `Hallo!\n\nEs scheint, Sie sind bereit, mit ${emailProduct} den nächsten Schritt zu gehen. Als Ausdruck unserer Wertschätzung haben wir ein spezielles Angebot für Sie vorbereitet, das perfekt zu Ihren Anforderungen als ${recipientRole} passt.\n\nDieses Angebot ist ${urgencyLevel === 'high' ? 'nur für kurze Zeit verfügbar' : 'zeitlich begrenzt'}. Verpassen Sie nicht die Gelegenheit, Ihre ${emailProduct}-Implementierung zu starten.\n\nJetzt zugreifen: [Link zum Angebot]`;
+                        break;
+                    case 'customer':
+                        subjectLine = `Bleiben Sie dran: Updates & Best Practices für Ihr ${emailProduct}`;
+                        emailBody = `Liebe/r Kunde/in,\n\nwir hoffen, dass Sie mit ${emailProduct} weiterhin hervorragende Ergebnisse erzielen. Wir haben spannende Updates und Best Practices für Sie, die Ihnen helfen, noch mehr aus Ihrer Lösung herauszuholen.\n\nEntdecken Sie neue Funktionen und Tipps: [Link zu Updates]\nVielen Dank für Ihr Vertrauen in uns!`;
+                        break;
+                }
+
+                const result = `
+                    <div class="result-card">
+                        <h3 class="result-header">Optimierter E-Mail Betreff</h3>
+                        <p class="result-content">${subjectLine}</p>
+                    </div>
+                    <div class="result-card">
+                        <h3 class="result-header">Optimierter E-Mail Inhalt</h3>
+                        <p class="result-content">${emailBody}</p>
+                    </div>
+                `;
+                resultsDiv.innerHTML = result;
+                hideLoading('emailLoading');
+            }, 2000);
+        }
+
+        // Social Media Generator
+        function generateSocialContent() {
+            const socialContent = document.getElementById('socialContent').value.trim();
+            const socialGoal = document.getElementById('socialGoal').value;
+            const resultsDiv = document.getElementById('socialResults');
+
+            if (!socialContent) {
+                alert('Bitte geben Sie einen Basis-Content für Social Media ein!');
+                return;
+            }
+
+            // Webhook Aufruf
+            sendToMake(MAKE_WEBHOOKS.socialContent, { socialContent, socialGoal });
+
+            showLoading('socialLoading');
+            resultsDiv.innerHTML = '';
+
+            setTimeout(() => {
+                let linkedinPost = '';
+                let twitterPost = '';
+                let facebookPost = '';
+
+                linkedinPost = `**LinkedIn (B2B, Professional):**\n"${socialContent}"\n\n${socialGoal === 'awareness' ? 'Erfahren Sie, wie diese Innovation Ihre Branche voranbringen kann. #Innovation #TechMarketing #B2B' : ''}${socialGoal === 'engagement' ? 'Was denken Sie darüber? Diskutieren Sie mit uns! #FutureTech #BusinessInnovation' : ''}${socialGoal === 'leads' ? 'Fordern Sie jetzt eine Demo an und entdecken Sie das volle Potenzial: [Link zur Landing Page] #LeadGeneration #Solution' : ''}`;
+                twitterPost = `**Twitter/X (Concise, Engaging):**\n"${socialContent.substring(0, 150)}..."\n\n${socialGoal === 'awareness' ? 'Game-Changer in der Tech-Welt! #TechNews #Innovation' : ''}${socialGoal === 'engagement' ? 'Ihre Meinung zählt! 👇 #TechTalk #FutureOfWork' : ''}${socialGoal === 'leads' ? 'Jetzt mehr erfahren & Demo buchen! [Kurzlink] #TechSolutions #GetStarted' : ''}`;
+                facebookPost = `**Facebook (Community, Engagement):**\n"${socialContent}"\n\n${socialGoal === 'awareness' ? 'Wir sind stolz, Ihnen unsere neueste Innovation vorstellen zu dürfen! Teilen Sie diesen Beitrag, wenn Sie begeistert sind! ✨ #TechCommunity #DigitalMarketing' : ''}${socialGoal === 'engagement' ? 'Welchen Einfluss hat das auf Ihren Alltag? Kommentieren Sie unten! 👇 Wir freuen uns auf Ihre Gedanken! #InnovationForYou #Technology' : ''}${socialGoal === 'leads' ? 'Bereit, den nächsten Schritt zu gehen? Besuchen Sie unsere Website für alle Details und ein spezielles Angebot: [Link zur Website] #ExclusiveOffer #TechDeals' : ''}`;
+
+                const result = `
+                    <div class="platform-content">
+                        <h4 class="platform-header"><span class="platform-icon linkedin"></span> LinkedIn Post</h4>
+                        <p class="result-content">${linkedinPost}</p>
+                    </div>
+                    <div class="platform-content">
+                        <h4 class="platform-header"><span class="platform-icon twitter"></span> Twitter/X Post</h4>
+                        <p class="result-content">${twitterPost}</p>
+                    </div>
+                    <div class="platform-content">
+                        <h4 class="platform-header"><span class="platform-icon facebook"></span> Facebook Post</h4>
+                        <p class="result-content">${facebookPost}</p>
+                    </div>
+                    `;
+                resultsDiv.innerHTML = result;
+                hideLoading('socialLoading');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
