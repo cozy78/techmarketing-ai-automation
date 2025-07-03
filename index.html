@@ -851,18 +851,21 @@
     </div>
 
     <script>
-        <script>
+       
     // ===== OPENAI KI-INTEGRATION =====
+    // HINWEIS: API-Schlüssel im Frontend ist nur für private Schulprojekte vertretbar.
+    // Niemals in einer öffentlichen Anwendung verwenden!
     const OPENAI_CONFIG = {
         apiKey: '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',
-        baseURL: 'https://api.openai.com/v1/chat/completions',
+        baseURL: 'https://api.openai.com/v1', // Korrekte Base-URL
         model: 'gpt-4o-mini'
     };
 
     // OpenAI API Wrapper
     async function generateWithOpenAI(systemPrompt, userPrompt, maxTokens = 500) {
         try {
-            const response = await fetch(OPENAI_CONFIG.baseURL, {
+            // Die URL wird hier korrekt zusammengesetzt
+            const response = await fetch(`${OPENAI_CONFIG.baseURL}/chat/completions`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${OPENAI_CONFIG.apiKey}`,
@@ -887,7 +890,9 @@
             });
 
             if (!response.ok) {
-                throw new Error(`OpenAI API Error: ${response.status}`);
+                // Optional: Detailliertere Fehlermeldung aus der API auslesen
+                const errorData = await response.json();
+                throw new Error(`OpenAI API Error: ${response.status} - ${errorData.error.message}`);
             }
 
             const data = await response.json();
@@ -970,16 +975,21 @@
         }
     };
 
-     // ===== ENDE KI-INTEGRATION =====
+    // ===== ENDE KI-INTEGRATION =====
 
     // Deine bestehenden Funktionen bleiben hier...
-    function switchTab(tabId) {
+    
+    // Die Funktion nimmt nun das "event"-Objekt entgegen
+    function switchTab(event, tabId) {
         document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
         document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
-        event.target.classList.add('active'); 
+        
+        // Das geklickte Element (der Tab) wird über event.currentTarget angesprochen
+        event.currentTarget.classList.add('active'); 
         document.getElementById(tabId).classList.add('active');
     }
 
+</script>
     // ... rest deines Codes
 
         
