@@ -851,6 +851,138 @@
     </div>
 
     <script>
+        <script>
+    // ===== OPENAI KI-INTEGRATION =====
+    const OPENAI_CONFIG = {
+        apiKey: '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',
+        baseURL: 'https://api.openai.com/v1/chat/completions',
+        model: 'gpt-4o-mini'
+    };
+
+    // OpenAI API Wrapper
+    async function generateWithOpenAI(systemPrompt, userPrompt, maxTokens = 500) {
+        try {
+            const response = await fetch(OPENAI_CONFIG.baseURL, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${OPENAI_CONFIG.apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: OPENAI_CONFIG.model,
+                    messages: [
+                        {
+                            role: 'system',
+                            content: systemPrompt
+                        },
+                        {
+                            role: 'user', 
+                            content: userPrompt
+                        }
+                    ],
+                    max_tokens: maxTokens,
+                    temperature: 0.7,
+                    presence_penalty: 0.1
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`OpenAI API Error: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data.choices[0].message.content.trim();
+        } catch (error) {
+            console.error('OpenAI Error:', error);
+            return `KI-Generierung fehlgeschlagen. Fallback zu Template-System.`;
+        }
+    }
+
+    // KI-Prompts für verschiedene Content-Typen
+    const AI_PROMPTS = {
+        marketing: {
+            system: "Du bist ein erfahrener B2B-Marketing-Experte, spezialisiert auf technische Produkte. Erstelle professionelle, überzeugende Marketing-Texte die konkrete Vorteile und ROI hervorheben.",
+            user: (product, audience, industry, tone, focus) => 
+                `Erstelle eine professionelle Marketing-Beschreibung für: ${product}
+                
+                Zielgruppe: ${audience}
+                Branche: ${industry}
+                Tonalität: ${tone}
+                Hauptfokus: ${focus}
+                
+                Anforderungen:
+                - 200-300 Wörter
+                - Konkrete Vorteile und ROI nennen
+                - Call-to-Action am Ende
+                - Deutsche Sprache
+                - Professional aber engaging`
+        },
+        
+        linkedin: {
+            system: "Du bist ein LinkedIn-Marketing-Spezialist. Erstelle engaging B2B-Posts die Diskussionen anregen und professionell wirken.",
+            user: (product, audience, industry) =>
+                `Erstelle einen LinkedIn-Post für: ${product}
+                
+                Zielgruppe: ${audience}
+                Branche: ${industry}
+                
+                Anforderungen:
+                - 150-200 Wörter
+                - 3-5 relevante Emojis verwenden
+                - Frage am Ende für Engagement
+                - 5-7 relevante Hashtags
+                - Professional aber engaging
+                - Deutsche Sprache`
+        },
+        
+        email: {
+            system: "Du bist ein E-Mail-Marketing-Experte für B2B. Erstelle personalisierte E-Mails die hohe Open- und Click-Rates erzielen.",
+            user: (product, audience, urgency) =>
+                `Erstelle eine B2B-E-Mail für: ${product}
+                
+                Zielgruppe: ${audience}
+                Dringlichkeit: ${urgency}
+                
+                Anforderungen:
+                - Überzeugender Betreff
+                - Personalisierte Ansprache
+                - Klare Value Proposition
+                - Starker Call-to-Action
+                - 150-250 Wörter Body
+                - Deutsche Sprache`
+        },
+        
+        googleAds: {
+            system: "Du bist ein Google Ads Experte für B2B-Kampagnen. Erstelle conversion-optimierte Anzeigentexte.",
+            user: (product, audience, industry, focus) =>
+                `Erstelle Google Ads Texte für: ${product}
+                
+                Zielgruppe: ${audience}
+                Branche: ${industry}
+                Fokus: ${focus}
+                
+                Anforderungen:
+                - 3 Headlines (je max 30 Zeichen)
+                - 2 Descriptions (je max 90 Zeichen)
+                - 4 Sitelinks mit Beschreibung
+                - Deutsche Sprache
+                - Conversion-optimiert`
+        }
+    };
+
+     // ===== ENDE KI-INTEGRATION =====
+
+    // Deine bestehenden Funktionen bleiben hier...
+    function switchTab(tabId) {
+        document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
+        event.target.classList.add('active'); 
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // ... rest deines Codes
+
+        
         function switchTab(tabId) {
             document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
