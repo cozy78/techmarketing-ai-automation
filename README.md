@@ -103,7 +103,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Router → Verteilt nach Lead-Score
 * Gmail → Sendet angepasste E-Mails
 
-![MakeAuto](<Screenshot 2025-07-09 151958-1.png>)
+![MakeAuto](<Screenshot 2025-07-09 151958.png>)
 
 ### Content Generation + E-Mail
 
@@ -114,7 +114,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Google Drive → Teilt Dokument → PDF wird generiert
 * Gmail → Sendet E-Mail mit PDF im Anhang
 
-![MakeAuto](<Screenshot 2025-07-09 152512-1.png>)
+![MakeAuto](<Screenshot 2025-07-09 152512.png>)
 
 ### Google Workspace Verbindung
 
