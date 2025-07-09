@@ -182,8 +182,8 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 
 ---
 
-##📊 Anwendungsfälle
-###🔧 B2B-Technologieunternehmen
+## 📊 Anwendungsfälle
+### 🔧 B2B-Technologieunternehmen
 Produkt-Launch-Kampagnen
 → Automatisierte Inhaltserstellung für neue technische Produkte
 
@@ -193,7 +193,7 @@ Lead-Qualifizierung
 Multi-Channel-Marketing
 → Konsistente Kommunikation über alle Plattformen hinweg
 
-🏭 Industrielle Fertigung
+### 🏭 Industrielle Fertigung
 Technische Dokumentation
 → Komplexe Produktspezifikationen in verständliche Marketing-Texte umgewandelt
 
@@ -203,7 +203,7 @@ Kundensegmentierung
 Messe-Nachbereitung
 → Personalisierte E-Mail-Sequenzen nach Events
 
-###🧑‍💼 Professionelle Dienstleistungen
+### 🧑‍💼 Professionelle Dienstleistungen
 Thought Leadership
 → Branchenwissen in überzeugende Social-Media-Beiträge verwandeln
 
@@ -213,7 +213,7 @@ Kundengewinnung
 Angebotsgenerierung
 → Individuelle Inhalte für Angebote und Pitch-Dokumente
 
-###🧠 Intelligenter Lead Scoring Algorithmus
+### 🧠 Intelligenter Lead Scoring Algorithmus
 
 Multifaktor-Analyse
 → Unternehmensgröße, Engagement-Historie, Verhaltensdaten
@@ -227,7 +227,7 @@ Prädiktive Einblicke
 Automatisierte Aktionen
 → Workflow-Ausführung auf Basis von Triggern
 
-###✍️ KI-gestützte Content-Adaption
+### ✍️ KI-gestützte Content-Adaption
 
 Kontextabhängige Generierung
 → Branchen- und zielgruppenspezifische Optimierung
@@ -238,7 +238,7 @@ Tonalitäts-Anpassung
 Formatoptimierung
 → Anpassung an Plattform-Limits und Best Practices
 
-###🔧 No-Code-Automationsbrücke
+### 🔧 No-Code-Automationsbrücke
 
 Visueller Workflow-Builder
 → Make.com-Integration für nicht-technische Nutzer
