@@ -15,6 +15,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Live Demo
 * Verwendung
 * Technologie-Stack
+* Anwendungsfälle
 * Roadmap
 
 ---
@@ -145,29 +146,64 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 ---
 
 ## 📱 Verwendung
+### 📝 Content Generator
+Produktbeschreibung eingeben
 
-### Content Generator
+Technische Details, Features, Spezifikationen
 
-1. Produktbeschreibung eingeben
+Parameter auswählen
 
-   * Technische Details, Features, Spezifikationen
-2. Parameter auswählen
+Zielgruppe (z. B. Technik, Management, Einkauf)
 
-   * Zielgruppe, Branche, Tonalität, Fokus-Metrik
-3. Content generieren → KI simuliert Marketing-Text
-4. Lead-Capture Modal erscheint
+Branche (z. B. Maschinenbau, IT, Automotive)
 
-### E-Mail-Versand
+Tonalität (z. B. professionell, innovativ, vertrauenswürdig)
 
-* Name und E-Mail eingeben
-* Content wird als Google Doc gespeichert → PDF wird generiert
-* E-Mail mit PDF wird versendet
+Fokus-Metrik (z. B. Effizienz, Skalierbarkeit, ROI)
 
-### Lead Scoring Workflow
+Content generieren
 
-1. Lead-Daten eingeben (E-Mail, Firmengröße, Aktivität)
-2. Score berechnen → Automatische Punktevergabe + Kategorie
-3. Automation: HubSpot-Kontakt wird erstellt + E-Mail-Versand gestartet
+Simulierte KI erstellt passgenauen Marketing-Text
+
+Lead-Capture Modal erscheint
+
+Nutzer gibt Name und E-Mail-Adresse ein
+
+Optionaler Call-to-Action zur Weiterverarbeitung
+
+### 📧 E-Mail-Versand
+Lead-Daten werden erfasst
+
+Content wird als Google-Dokument gespeichert
+
+PDF wird automatisch generiert (Make.com Szenario)
+
+E-Mail mit PDF-Anhang wird an den Lead versendet
+
+### 📊 Lead Scoring Workflow
+Lead-Formular ausfüllen
+
+E-Mail-Adresse
+
+Unternehmensgröße
+
+Website-Aktivität
+
+E-Mail-Engagement
+
+Scoring auslösen
+
+Automatische Punktevergabe
+
+Einteilung in Cold, Warm oder Hot Lead
+
+Automatisierte Aktionen
+
+Kontakt wird in HubSpot angelegt
+
+Segmentierte E-Mail mit passender Tonalität wird versendet
+
+Optional: Follow-up Sequenz oder CRM-Tagging
 
 ## 🔧 Technologie-Stack
 
