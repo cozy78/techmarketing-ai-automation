@@ -86,7 +86,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 
 ## 🌐 Live Demo
 
-**Demo ansehen:** *(Optionaler Link)*
+**Demo ansehen:** https://cozy78.github.io/techmarketing-ai-automation/
 
 **Zugangsdaten:**
 
