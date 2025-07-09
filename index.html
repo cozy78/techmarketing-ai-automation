@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMarketing AI Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            background-attachment: fixed;
+        }
+        
+        .main-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: none;
+        }
+        
+        .nav {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: none;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+        }
+        
+        .hero-section {
+            text-align: center;
+            padding: 80px 40px;
+            color: white;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hero-title {
+            font-size: 3.5em;
+            font-weight: 700;
+            line-height: 1.35;
+            margin-bottom: 25px;
+            background: linear-gradient(45deg, #ffffff, #e0e7ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        
+        .cta-button {
+            background: white;
+            color: #000000;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tools-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tools-nav {
+            background: rgba(248, 250, 252, 0.8);
+            backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            overflow-x: auto;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .tools-nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 0 40px;
+        }
+        
+        .tool-tab {
+            flex: 0 0 auto; 
+            min-width: 200px;
+            max-width: 250px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            background: none;
+            border: none;
+            font-size: 1em;
+            cursor: pointer !important;
+    pointer-events: auto !important;
+    user-select: none;
+    -webkit-user-select: none;
+        }
+        
+        .tool-tab:hover {
+            color: #334155;
+            background: #f1f5f9;
+        }
+        
+        .tool-tab.active {
+            color: #667eea;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-color: #667eea;
+        }
+        
+        .tool-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .tool-section {
+            display: none;
+        }
+        
+        .tool-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+        
+        .section-description {
+            font-size: 1.2em;
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .form-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .form-grid.two-column {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+            font-size: 1em;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .input-field.textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+     /* Custom Select Wrapper */
+.custom-select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.custom-select {
+    position: relative;
+}
+
+.custom-select-wrapper:has(.custom-select.open) {
+    z-index: 9999 !important;
+}
+
+/* Erhöhter z-index nur wenn geöffnet */
+.custom-select.open {
+    z-index: 9999 !important;
+    position: relative;
+}
+
+/* Select Trigger (das Hauptfeld) */
+.custom-select-trigger {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    background: white;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.custom-select-trigger:hover {
+    border-color: #cbd5e1;
+    background: #fafbfc;
+}
+
+.custom-select-trigger::after {
+    content: '';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border-bottom: 2px solid #64748b;
+    border-right: 2px solid #64748b;
+    transition: transform 0.3s ease;
+}
+
+.custom-select.open .custom-select-trigger {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.custom-select.open .custom-select-trigger::after {
+    transform: translateY(-50%) rotate(-135deg);
+}
+
+/* Options container when open */
+.custom-select.open .custom-options {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    z-index: 10000 !important;
+}
+
+/* Options container mit clip-path für garantiert runde Ecken */
+.custom-options {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    clip-path: inset(0 round 12px); /* Der Trick für runde Ecken! */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    max-height: 300px;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.custom-options-inner {
+    max-height: 296px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.custom-option {
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: white;
+    position: relative;
+}
+
+/* Erste Option */
+.custom-option:first-child {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Letzte Option */
+.custom-option:last-child {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: none;
+}
+
+/* Entferne die Border zwischen Optionen */
+.custom-option:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* Hover State mit sanftem Übergang */
+.custom-option:hover {
+    background: #f0f4ff;
+    color: #667eea;
+    font-weight: 500;
+}
+
+/* Selected Option mit blauem Hintergrund wie im Screenshot */
+.custom-option.selected {
+    background: #3b82f6 !important;
+    color: white !important;
+    font-weight: 600;
+}
+
+/* Mobile Anpassungen */
+@media (max-width: 768px) {
+    .custom-select-trigger {
+        font-size: 16px; /* Verhindert Zoom auf iOS */
+    }
+    
+    .custom-options {
+        max-height: 250px;
+    }
+}
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 30px auto;
+            display: block;
+            min-width: 250px;
+        }
+        
+        .action-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .action-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .results-section {
+            margin-top: 50px;
+        }
+        
+        .result-card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .result-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .result-header {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .result-content {
+            color: #374151;
+            line-height: 1.7;
+            white-space: pre-line;
+            font-size: 1em;
+        }
+        
+        .score-display {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 16px;
+            margin: 30px 0;
+        }
+        
+        .score-number {
+            font-size: 4em;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .score-label {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .info-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card h4 {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        .info-card ul {
+            color: #4b5563;
+            padding-left: 20px;
+        }
+        
+        .info-card li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .loading {
+            text-align: center;
+            color: #667eea;
+            font-size: 18px;
+            margin: 30px 0;
+            display: none;
+            padding: 20px;
+        }
+        
+        .platform-content {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            background: #fafbfc;
+        }
+        
+        .platform-header {
+            color: #1e293b;
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .platform-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+        
+        .linkedin { background: #0077b5; }
+        .twitter { background: #1da1f2; }
+        .facebook { background: #4267b2; }
+        .instagram { background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); }
+        
+        .character-count {
+            font-size: 0.9em;
+            color: #6b7280;
+            text-align: right;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .campaign-preview {
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            background: white;
+        }
+        
+        .campaign-preview h4 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid.two-column {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-title {
+                font-size: 2.5em;
+            }
+            
+            .nav {
+                padding: 0 20px;
+            }
+            
+            .tool-content {
+                padding: 40px 20px;
+            }
+            
+            .tools-nav-inner {
+                padding: 0 20px;
+            }
+            
+            .tools-nav {
+                overflow-x: auto; 
+                justify-content: flex-start;
+            }
+            
+            .tool-tab {
+                min-width: 150px
+            }
+
+        }
+        /* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+/* Modal Content */
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    transform: translateY(50px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+/* Modal Header */
+.modal-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.modal-header h3 {
+    color: #1e293b;
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.modal-header p {
+    color: #64748b;
+    font-size: 1.1em;
+    line-height: 1.5;
+}
+
+/* Close Button */
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.modal-close:hover {
+    color: #64748b;
+}
+
+/* Form Styles */
+.lead-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    font-size: 1em;
+}
+
+.form-group input {
+    padding: 15px 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Submit Button */
+.submit-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 18px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Success Message */
+.success-message {
+    text-align: center;
+    color: #059669;
+    font-weight: 600;
+    display: none;
+}
+
+.success-message.show {
+    display: block;
+}
+
+/* Benefits List */
+.benefits {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.benefits h4 {
+    color: #1e293b;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.benefits ul {
+    list-style: none;
+    padding: 0;
+}
+
+.benefits li {
+    color: #4b5563;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.benefits li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #059669;
+    font-weight: bold;
+}
+/* Force rounded corners override */
+.custom-options,
+.custom-option:first-child,
+.custom-option:last-child {
+    border-radius: 12px !important;
+}
+
+.custom-option:first-child {
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.custom-option:last-child {
+    border-bottom-left-radius: 10px !important;
+    border-bottom-right-radius: 10px !important;
+    border-bottom: none !important;
+}
+
+/* Stelle sicher, dass der Container die Ecken nicht abschneidet */
+.custom-select-wrapper {
+    position: relative;
+    z-index: 1;
+}
+</style>
+</head>
+<body>
+    <div class="main-container">
+        <header class="header">
+            <nav class="nav">
+                <a href="#" class="logo">TechMarketing AI</a>
+                <ul class="nav-links">
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Preise</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="hero-section">
+            <div class="hero-badge">Willkommen bei TechMarketing AI</div>
+            <h1 class="hero-title">Revolutionieren Sie Ihr<br>Marketing mit KI-Power</h1>
+            <p class="hero-subtitle">
+                Steigern Sie Ihre Kampagnen-Performance, erhöhen Sie den ROI und erschließen Sie 
+                datengesteuerte Erkenntnisse mit unseren fortschrittlichen KI-Marketing-Lösungen.
+            </p>
+            <a href="#tools" class="cta-button">Jetzt starten</a>
+        </section>
+        
+        <div class="tools-container" id="tools">
+            <nav class="tools-nav">
+                <div class="tools-nav-inner">
+                    <button class="tool-tab active" onclick="switchTab('content-generator')">
+                        Content Generator
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('lead-scoring')">
+                        Lead Scoring
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('email-optimizer')">
+                        E-Mail Optimizer
+                    </button>
+                    <button class="tool-tab" onclick="switchTab('social-generator')">
+                        Social Media Suite
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="tool-content">
+                <div id="content-generator" class="tool-section active">
+                    <div class="section-header">
+                        <h2 class="section-title">Content Generator</h2>
+                        <p class="section-description">
+                            Wandelt technische Produktdaten in überzeugende, zielgruppenspezifische Marketing-Inhalte um!
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Beispiel-Produktbeschreibungen</h4>
+                        <ul>
+                            <li>Industrieroboter, 6 Achsen, 20kg Traglast, 0.1mm Präzision, Automobilindustrie</li>
+                            <li>Cloud-basierte CAD-Software, 3D-Modellierung, Simulation, Kollaboration, Maschinenbau</li>
+                            <li>KI-gestützte Qualitätskontrolle, Bildverarbeitung, 99.5% Genauigkeit, Echtzeitanalyse</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="productDescription">Produktbeschreibung</label>
+                                <textarea id="productDescription" class="input-field textarea" placeholder="Beschreiben Sie Ihr technisches Produkt detailliert..."></textarea>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="targetAudience">Zielgruppe</label>
+                                <select id="targetAudience" class="input-field">
+                                    <option value="technical">Technische Entscheider</option>
+                                    <option value="management">Management/C-Level</option>
+                                    <option value="procurement">Einkauf/Beschaffung</option>
+                                    <option value="enduser">End-User</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="industry">Branche</label>
+                                <select id="industry" class="input-field">
+                                    <option value="automotive">Automotive</option>
+                                    <option value="manufacturing">Fertigungsindustrie</option>
+                                    <option value="aerospace">Luft- & Raumfahrt</option>
+                                    <option value="medical">Medizintechnik</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="contentTone">Tonalität</label>
+                                <select id="contentTone" class="input-field">
+                                    <option value="professional">Professionell & Sachlich</option>
+                                    <option value="innovative">Innovativ & Zukunftsorientiert</option>
+                                    <option value="trustworthy">Vertrauensvoll & Etabliert</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="urgency">Dringlichkeit</label>
+                                <select id="urgency" class="input-field">
+                                    <option value="low">Informativ</option>
+                                    <option value="medium">Moderat</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="focusMetric">Hauptargument</label>
+                                <select id="focusMetric" class="input-field">
+                                    <option value="efficiency">Effizienzsteigerung</option>
+                                    <option value="cost">Kosteneinsparung</option>
+                                    <option value="quality">Qualitätsverbesserung</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="generateContent()">
+                        Marketing-Content generieren
+                    </button>
+                    
+                    <div class="loading" id="contentLoading">
+                        KI analysiert Produktdaten und erstellt zielgruppenspezifische Inhalte...
+                    </div>
+                    
+                    <div id="contentResults" class="results-section"></div>
+                </div>
+                
+                <div id="lead-scoring" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Lead Scoring</h2>
+                        <p class="section-description">
+                            Bewertet potenzielle Kunden basierend auf Verhalten, Firmendaten und Interaktionen
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Scoring-Faktoren</h4>
+                        <ul>
+                            <li>Unternehmensgröße & Branche</li>
+                            <li>Website-Verhalten & Downloads</li>
+                            <li>E-Mail-Engagement</li>
+                            <li>Demografische Daten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="companyName">Unternehmens-E-Mail</label>
+                                <input type="text" id="companyName" class="input-field" placeholder="z.B. info@bmw.de">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="companySize">Unternehmensgröße</label>
+                                <select id="companySize" class="input-field">
+                                    <option value="startup">Startup (1-50 MA)</option>
+                                    <option value="small">Klein (51-200 MA)</option>
+                                    <option value="medium">Mittel (201-1000 MA)</option>
+                                    <option value="large">Groß (1000+ MA)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="websiteVisits">Website-Besuche</label>
+                                <select id="websiteVisits" class="input-field">
+                                    <option value="0">Keine</option>
+                                    <option value="1-3">1-3 Besuche</option>
+                                    <option value="4-10">4-10 Besuche</option>
+                                    <option value="10+">Mehr als 10</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="emailEngagement">E-Mail Engagement</label>
+                                <select id="emailEngagement" class="input-field">
+                                    <option value="none">Keine E-Mails</option>
+                                    <option value="low">Niedrig</option>
+                                    <option value="medium">Mittel</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="calculateLeadScore()">
+                        Lead Score berechnen
+                    </button>
+                    
+                    <div class="loading" id="scoringLoading">
+                        KI analysiert Lead-Daten und berechnet Conversion-Wahrscheinlichkeit...
+                    </div>
+                    
+                    <div id="scoringResults" class="results-section"></div>
+                </div>
+                
+                <div id="email-optimizer" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">E-Mail Optimizer</h2>
+                        <p class="section-description">
+                            Personalisiert automatisch E-Mail-Inhalte basierend auf Kundenverhalten
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Personalisierungsoptionen</h4>
+                        <ul>
+                            <li>Branchen-spezifische Ansprache</li>
+                            <li>Rollen-basierte Inhalte</li>
+                            <li>A/B-Test Varianten</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="emailProduct">Produkt/Service</label>
+                                <input type="text" id="emailProduct" class="input-field" placeholder="z.B. Industrieroboter">
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="recipientRole">Empfänger-Rolle</label>
+                                <select id="recipientRole" class="input-field">
+                                    <option value="technical">Technische Entscheider</option>
+                                    <option value="business">Business Entscheider</option>
+                                    <option value="user">End-User</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="customerStage">Customer Journey</label>
+                                <select id="customerStage" class="input-field">
+                                    <option value="cold">Cold Lead</option>
+                                    <option value="warm">Warm Lead</option>
+                                    <option value="hot">Hot Lead</option>
+                                    <option value="customer">Bestandskunde</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label class="input-label" for="urgencyLevel">Dringlichkeit</label>
+                                <select id="urgencyLevel" class="input-field">
+                                    <option value="low">Niedrig</option>
+                                    <option value="medium">Mittel</option>
+                                    <option value="high">Hoch</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="optimizeEmail()">
+                        E-Mail-Kampagne optimieren
+                    </button>
+                    
+                    <div class="loading" id="emailLoading">
+                        KI optimiert E-Mail-Inhalte basierend auf Kundenprofil...
+                    </div>
+                    
+                    <div id="emailResults" class="results-section"></div>
+                </div>
+                
+                <div id="social-generator" class="tool-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Social Media Suite</h2>
+                        <p class="section-description">
+                            Erstellt optimierte Posts für verschiedene Social Media Plattformen
+                        </p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <h4>Unterstützte Plattformen</h4>
+                        <ul>
+                            <li>LinkedIn (B2B-fokussiert)</li>
+                            <li>Twitter/X (prägnant)</li>
+                            <li>Facebook (engagement-orientiert)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="form-grid two-column">
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="socialContent">Basis-Content</label>
+                                <textarea id="socialContent" class="input-field textarea" placeholder="z.B. Unser neuer Industrieroboter revolutioniert die Fertigung..."></textarea>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="input-group">
+                                <label class="input-label" for="socialGoal">Content-Ziel</label>
+                                <select id="socialGoal" class="input-field">
+                                    <option value="awareness">Brand Awareness</option>
+                                    <option value="engagement">Engagement</option>
+                                    <option value="leads">Lead-Generierung</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="action-button" onclick="generateSocialContent()">
+                        Multi-Platform Content erstellen
+                    </button>
+                    
+                    <div class="loading" id="socialLoading">
+                        KI erstellt plattform-optimierte Posts...
+                    </div>
+                    
+                    <div id="socialResults" class="results-section"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Lead Capture Modal -->
+<div id="leadCaptureModal" class="modal-overlay">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeLeadModal()">&times;</button>
+        
+        <div class="modal-header">
+            <h3>🎯 Content per E-Mail erhalten</h3>
+            <p>Lassen Sie sich den generierten Marketing-Content direkt zusenden!</p>
+        </div>
+
+        <div class="benefits">
+            <h4>Was Sie erhalten:</h4>
+            <ul>
+                <li>Alle generierten Marketing-Texte als PDF</li>
+                <li>Zusätzliche Bonus-Templates</li>
+                <li>Exklusive Tipps für B2B-Marketing</li>
+                <li>Kostenlose Beratung (15 Min)</li>
+            </ul>
+        </div>
+
+        <form class="lead-form" onsubmit="submitLeadForm(event)">
+            <div class="form-group">
+                <label for="leadName">Vollständiger Name</label>
+                <input type="text" id="leadName" name="name" placeholder="z.B. Max Mustermann" required>
+            </div>
+
+            <div class="form-group">
+                <label for="leadEmail">E-Mail-Adresse</label>
+                <input type="email" id="leadEmail" name="email" placeholder="z.B. max@unternehmen.de" required>
+            </div>
+
+            <div class="form-group">
+                <label for="leadCompany">Unternehmen (optional)</label>
+                <input type="text" id="leadCompany" name="company" placeholder="z.B. Mustermann GmbH">
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                📧 Content per E-Mail erhalten
+            </button>
+
+            <div class="success-message" id="successMessage">
+                ✅ Vielen Dank! Sie erhalten den Content in wenigen Minuten per E-Mail.
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+
+<script>
+    // Globale Variablen
+    let generatedContent = {};
+    let lastGeneratedContent = {};
+
+    // Diese Funktion MUSS hier am Anfang stehen!
+    function switchTab(tabId) {
+        document.querySelectorAll('.tool-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.tool-section').forEach(section => section.classList.remove('active'));
+        
+        const clickedTab = document.querySelector(`[onclick="switchTab('${tabId}')"]`);
+        if (clickedTab) {
+            clickedTab.classList.add('active');
+        }
+        
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    function showLoading(loadingElementId) {
+        document.getElementById(loadingElementId).style.display = 'block';
+        document.querySelectorAll('.action-button').forEach(button => button.disabled = true);
+    }
+
+    function hideLoading(loadingElementId) {
+        document.getElementById(loadingElementId).style.display = 'none';
+        document.querySelectorAll('.action-button').forEach(button => button.disabled = false);
+    }
+
+    // Modal Funktionen
+    function showLeadModal(content) {
+        generatedContent = content;
+        document.getElementById('leadCaptureModal').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLeadModal() {
+        document.getElementById('leadCaptureModal').classList.remove('show');
+        document.body.style.overflow = 'auto';  
+    }
+
+    // Make.com Webhook Konfiguration
+    const MAKE_WEBHOOKS = {
+        leadScoring: 'https://hook.eu2.make.com/3imx9avl2lk9lr8yugjopzknv339977y',
+        contentGenerated: 'https://hook.eu2.make.com/wag7z5sodbvagl3abaere4opian1lxii',
+        emailOptimized: 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID_3',
+        socialContent: 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID_4'
+    };
+
+    async function sendToMake(webhookUrl, data) {
+        try {
+            const response = await fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    timestamp: new Date().toISOString(),
+                    source: 'TechMarketing_AI',
+                    tool_version: '1.0',
+
+                    contact: {
+                        email: getContactEmail(),
+                        name: getContactName(),
+                        company: getCompanyName()
+
+                    },
+                    ...data
+                })
+            });
+
+            if (response.ok) {
+                showMakeSuccess();
+                return await response.json();
+            }
+        } catch (error) {
+            console.error('Make webhook error:', error);
+        }
+    }
+
+    // Hilfsfunktionen für Kontaktdaten
+function getContactEmail() {
+    // Versuche Email aus verschiedenen Quellen zu holen
+    const emailInput = document.getElementById('userEmail');
+    const emailField = document.querySelector('input[type="email"]');
+    const storedEmail = localStorage.getItem('userEmail');
+    
+    return emailInput?.value || 
+           emailField?.value || 
+           storedEmail || 
+           'nicht_angegeben@techmarketing.ai';
+}
+
+function getContactName() {
+    // Versuche Name aus verschiedenen Quellen zu holen
+    const nameInput = document.getElementById('userName');
+    const firstNameInput = document.getElementById('firstName');
+    const lastNameInput = document.getElementById('lastName');
+    const storedName = localStorage.getItem('userName');
+    
+    if (firstNameInput && lastNameInput) {
+        return `${firstNameInput.value} ${lastNameInput.value}`.trim();
+    }
+    
+    return nameInput?.value || 
+           storedName || 
+           'Unbekannter Nutzer';
+}
+
+function getCompanyName() {
+    // Versuche Unternehmensname aus verschiedenen Quellen zu holen
+    const companyInput = document.getElementById('companyName');
+    const organizationInput = document.getElementById('organization');
+    const storedCompany = localStorage.getItem('companyName');
+    
+    return companyInput?.value || 
+           organizationInput?.value || 
+           storedCompany || 
+           'Unbekanntes Unternehmen';
+}
+
+// Funktion zum Speichern von Kontaktdaten (optional)
+function saveContactData(email, name, company) {
+    if (email) localStorage.setItem('userEmail', email);
+    if (name) localStorage.setItem('userName', name);
+    if (company) localStorage.setItem('companyName', company);
+}
+
+function showMakeSuccess() {
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+        position: fixed; top: 20px; right: 20px; background: #6366f1; 
+        color: white; padding: 15px 20px; border-radius: 8px; z-index: 1000;
+        font-weight: 600; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    `;
+    notification.textContent = '⚡ Make.com Scenario ausgelöst!';
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+}
+
+// Content Generator - erweitert mit Kontaktdaten-Erfassung
+function generateContent() {
+    const productDesc = document.getElementById('productDescription').value.trim();
+    const targetAudience = document.getElementById('targetAudience').value;
+    const industry = document.getElementById('industry').value;
+    const contentTone = document.getElementById('contentTone').value;
+    const urgency = document.getElementById('urgency').value;
+    const focusMetric = document.getElementById('focusMetric').value;
+    const resultsDiv = document.getElementById('contentResults');
+    
+    if (!productDesc) {
+        alert('Bitte geben Sie eine Produktbeschreibung ein!');
+        return;
+    }
+    
+    // Daten für später speichern
+    lastGeneratedContent = {
+        productDesc,
+        targetAudience,
+        industry,
+        contentTone,
+        urgency,
+        focusMetric
+    };
+    
+    // Webhook Aufruf
+    sendToMake(MAKE_WEBHOOKS.contentGenerated, lastGeneratedContent);
+
+    showLoading('contentLoading');
+    resultsDiv.innerHTML = ''; 
+
+    setTimeout(() => {
+        const generatedText = `
+            <div class="result-card">
+                <h3 class="result-header">Marketing-Beschreibung</h3>
+                <p class="result-content">
+                    Revolutionäre Lösung für Ihre ${industry}-Industrie: ${productDesc}
+                    Maßgeschneidert für ${targetAudience} mit ${contentTone} Tonalität und Fokus auf ${focusMetric}.
+                    Unsere fortschrittliche Technologie bietet:
+                    • Höchste Präzision und Zuverlässigkeit
+                    • Nachgewiesene Effizienzsteigerung und Kosteneinsparungen
+                    • Nahtlose Integration in bestehende Systeme
+                    • Deutsche Premium-Qualität mit 24/7 Support
+                    Handeln Sie jetzt, um Ihre ${focusMetric} zu maximieren! Fordern Sie noch heute eine kostenlose Beratung an!
+                </p>
+            </div>
+        `;
+        resultsDiv.innerHTML = generatedText;
+        hideLoading('contentLoading');
+        
+        // Lead Modal nach 1 Sekunde zeigen
+        setTimeout(() => {
+            showLeadModal({ 
+                description: generatedText,
+                ...lastGeneratedContent 
+            });
+        }, 1000);
+    }, 2000);
+}
+
+    // Lead Form Submit
+    async function submitLeadForm(event) {
+        event.preventDefault();
+        
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Wird gesendet...';
+        
+        const formData = {
+            name: document.getElementById('leadName').value,
+            email: document.getElementById('leadEmail').value,
+            company: document.getElementById('leadCompany').value,
+            generated_content: generatedContent,
+            content_data: lastGeneratedContent,
+            timestamp: new Date().toISOString(),
+            source: 'content_generator_lead_capture'
+        };
+        
+        try {
+            await fetch('https://hook.eu2.make.com/wag7z5sodbvagl3abaere4opian1lxii', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            successMessage.classList.add('show');
+            document.querySelector('.lead-form').style.display = 'none';
+            
+            setTimeout(() => {
+                closeLeadModal();
+                document.querySelector('.lead-form').reset();
+                document.querySelector('.lead-form').style.display = 'flex';
+                successMessage.classList.remove('show');
+            }, 3000);
+            
+        } catch (error) {
+            console.error('Lead capture error:', error);
+            alert('Fehler beim Senden. Bitte versuchen Sie es erneut.');
+        }
+        
+        submitBtn.disabled = false;
+        submitBtn.textContent = '📧 Content per E-Mail erhalten';
+    }
+
+    // Lead Scoring
+    function calculateLeadScore() {
+        const companyEmail = document.getElementById('companyName').value.trim();
+        const companySize = document.getElementById('companySize').value;
+        const websiteVisits = document.getElementById('websiteVisits').value;
+        const emailEngagement = document.getElementById('emailEngagement').value;
+        const resultsDiv = document.getElementById('scoringResults');
+
+        if (!companyEmail) {
+            alert('Bitte geben Sie einen Unternehmens-E-Mail ein!');
+            return;
+        }
+
+        let score = 0;
+        if (companySize === 'large') score += 30;
+        else if (companySize === 'medium') score += 20;
+        else if (companySize === 'small') score += 10;
+        else if (companySize === 'startup') score += 5;
+
+        if (websiteVisits === '10+') score += 40;
+        else if (websiteVisits === '4-10') score += 25;
+        else if (websiteVisits === '1-3') score += 10;
+
+        if (emailEngagement === 'high') score += 30;
+        else if (emailEngagement === 'medium') score += 15;
+        else if (emailEngagement === 'low') score += 5;
+
+        let priority = '';
+        let scoreDescription = '';
+        if (score >= 80) {
+            priority = 'HOT';
+            scoreDescription = 'Sehr hohes Potenzial (Hot Lead)';
+        } else if (score >= 50) {
+            priority = 'WARM';
+            scoreDescription = 'Hohes Potenzial (Warm Lead)';
+        } else {
+            priority = 'COLD';
+            scoreDescription = 'Mäßiges Potenzial (Cold Lead)';
+        }
+
+        const company = companyEmail.includes('@') ? companyEmail.split('@')[1].split('.')[0] : companyEmail;
+
+        sendToMake(MAKE_WEBHOOKS.leadScoring, { 
+            email: companyEmail,
+            company: company,
+            score: score,
+            priority: priority,
+            scoreDescription: scoreDescription,
+            companySize, 
+            websiteVisits, 
+            emailEngagement 
+        });
+        
+        showLoading('scoringLoading');
+        resultsDiv.innerHTML = '';
+
+        setTimeout(() => {
+            const result = `
+                <div class="score-display">
+                    <div class="score-number">${score}</div>
+                    <div class="score-label">Lead Score</div>
+                </div>
+                <div class="result-card">
+                    <h3 class="result-header">Empfehlung</h3>
+                    <p class="result-content">Basierend auf den Eingaben ist der Lead für "${companyEmail}" ein ${scoreDescription}.</p>
+                </div>
+            `;
+            resultsDiv.innerHTML = result;
+            hideLoading('scoringLoading');
+        }, 2000);
+    }
+
+    function optimizeEmail() {
+    const emailProduct = document.getElementById('emailProduct').value.trim();
+    const recipientRole = document.getElementById('recipientRole').value;
+    const customerStage = document.getElementById('customerStage').value;
+    const urgencyLevel = document.getElementById('urgencyLevel').value;
+    const resultsDiv = document.getElementById('emailResults');
+
+    if (!emailProduct) {
+        alert('Bitte geben Sie ein Produkt/Service für die E-Mail ein!');
+        return;
+    }
+
+    sendToMake(MAKE_WEBHOOKS.emailOptimized, { emailProduct, recipientRole, customerStage, urgencyLevel });
+
+    showLoading('emailLoading');
+    resultsDiv.innerHTML = '';
+
+    setTimeout(() => {
+        let subjectLine = '';
+        let emailBody = '';
+
+        switch (customerStage) {
+            case 'cold':
+                subjectLine = `Entdecken Sie, wie ${emailProduct} Ihr Geschäft transformiert!`;
+                emailBody = `Sehr geehrte/r Entscheidungsträger/in,\n\nwir möchten Ihnen ${emailProduct} vorstellen – eine Lösung, die neue Möglichkeiten schafft...`;
+                break;
+            case 'warm':
+                subjectLine = `Neue Einblicke zu ${emailProduct} – speziell für Sie!`;
+                emailBody = `Sehr geehrte/r ${recipientRole}-Entscheider/in,\n\nwir freuen uns über Ihr Interesse an ${emailProduct}...`;
+                break;
+            case 'hot':
+                subjectLine = `Letzter Schritt zur Einführung von ${emailProduct}`;
+                emailBody = `Sehr geehrte/r ${recipientRole},\n\nSie stehen kurz vor einer bahnbrechenden Entscheidung – ${emailProduct} ist bereit für den nächsten Schritt...`;
+                break;
+            case 'customer':
+                subjectLine = `Exklusive Optimierungsmöglichkeiten für Ihr bestehendes ${emailProduct}`;
+                emailBody = `Liebe/r Kunde/in,\n\nvielen Dank für Ihre bisherige Zusammenarbeit. Mit ${emailProduct} bieten wir Ihnen neue Features & Vorteile...`;
+                break;
+        }
+
+        const result = `
+            <div class="result-card">
+                <h3 class="result-header">Optimierter E-Mail Betreff</h3>
+                <p class="result-content">${subjectLine}</p>
+            </div>
+            <div class="result-card">
+                <h3 class="result-header">Optimierter E-Mail Inhalt</h3>
+                <p class="result-content">${emailBody}</p>
+            </div>
+        `;
+        resultsDiv.innerHTML = result;
+        hideLoading('emailLoading');
+    }, 2000);
+}
+
+    function generateSocialContent() {
+    const socialContent = document.getElementById('socialContent').value.trim();
+    const socialGoal = document.getElementById('socialGoal').value;
+    const resultsDiv = document.getElementById('socialResults');
+
+    if (!socialContent) {
+        alert('Bitte geben Sie einen Basis-Content ein!');
+        return;
+    }
+
+    sendToMake(MAKE_WEBHOOKS.socialContent, { socialContent, socialGoal });
+
+    showLoading('socialLoading');
+    resultsDiv.innerHTML = '';
+
+    setTimeout(() => {
+        const resultHTML = `
+            <div class="platform-content">
+                <div class="platform-header"><span class="platform-icon linkedin"></span> LinkedIn</div>
+                <p>${socialContent} 🚀\n\n#Innovation #B2B #${socialGoal}</p>
+            </div>
+            <div class="platform-content">
+                <div class="platform-header"><span class="platform-icon twitter"></span> Twitter / X</div>
+                <p>${socialContent.substring(0, 200)}... #${socialGoal}</p>
+            </div>
+            <div class="platform-content">
+                <div class="platform-header"><span class="platform-icon facebook"></span> Facebook</div>
+                <p>${socialContent}\n👉 Jetzt mehr erfahren!\n#${socialGoal}</p>
+            </div>
+        `;
+        resultsDiv.innerHTML = resultHTML;
+        hideLoading('socialLoading');
+    }, 2000);
+}
+
+    // DOM Content Loaded Events
+    document.addEventListener('DOMContentLoaded', function() {
+    // Custom Select Implementation
+    function initCustomSelects() {
+        document.querySelectorAll('select.input-field').forEach(function(selectElement) {
+            // Skip if already converted
+            if (selectElement.classList.contains('customized')) return;
+            
+            const wrapper = document.createElement('div');
+            wrapper.className = 'custom-select-wrapper';
+            
+            selectElement.parentNode.insertBefore(wrapper, selectElement);
+            wrapper.appendChild(selectElement);
+            selectElement.classList.add('customized');
+            selectElement.style.display = 'none';
+
+            const customSelect = document.createElement('div');
+            customSelect.className = 'custom-select';
+            wrapper.appendChild(customSelect);
+
+            const trigger = document.createElement('div');
+            trigger.className = 'custom-select-trigger';
+            trigger.textContent = selectElement.options[selectElement.selectedIndex].textContent;
+            customSelect.appendChild(trigger);
+
+            const options = document.createElement('div');
+            options.className = 'custom-options';
+            
+         
+            Array.from(selectElement.options).forEach(function(optionElement, index) {
+    const customOption = document.createElement('div');
+    customOption.className = 'custom-option';
+    customOption.textContent = optionElement.textContent;
+    customOption.dataset.value = optionElement.value;
+
+    if (selectElement.selectedIndex === index) {
+        customOption.classList.add('selected');
+    }
+
+    // Click handler für jede Option
+    customOption.addEventListener('click', function(e) {
+        e.stopPropagation();
+        
+        // Update original select
+        selectElement.value = this.dataset.value;
+        
+        // Update trigger text
+        trigger.textContent = this.textContent;
+        
+        // Update selected state
+        customSelect.querySelectorAll('.custom-option').forEach(opt => 
+            opt.classList.remove('selected'));
+        this.classList.add('selected');
+        
+        // Close dropdown
+        customSelect.classList.remove('open');
+        
+        // Trigger change event on original select
+        try {
+            if (typeof Event === 'function') {
+                selectElement.dispatchEvent(new Event('change', {
+                    bubbles: true,
+                    cancelable: true
+                }));
+            } else {
+                const event = document.createEvent('HTMLEvents');
+                event.initEvent('change', true, true);
+                selectElement.dispatchEvent(event);
+            }
+        } catch (error) {
+            console.error('Event dispatch error:', error);
+        }
+    });
+
+    options.appendChild(customOption);
+});
+        customSelect.appendChild(options);
+
+        // Improved toggle handler
+        trigger.addEventListener('mousedown', function(e) {  // Changed to mousedown
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const wasOpen = customSelect.classList.contains('open');
+            
+            // Close all other selects
+            document.querySelectorAll('.custom-select').forEach(s => 
+                s.classList.remove('open'));
+            
+            // Toggle this one if it wasn't open
+            if (!wasOpen) {
+                customSelect.classList.add('open');
+            }
+        });
+    });
+}
+
+    // Initialize selects
+    initCustomSelects();
+
+    // Close when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.custom-select')) {
+            document.querySelectorAll('.custom-select.open').forEach(select => 
+                select.classList.remove('open'));
+        }
+    });
+
+    // Modal and other events remain unchanged
+    document.getElementById('leadCaptureModal')?.addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeLeadModal();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeLeadModal();
+            document.querySelectorAll('.custom-select.open').forEach(select => 
+                select.classList.remove('open'));
+        }
+    });
+});
+
+   
+</script>
+   
+</body>
+</html>
