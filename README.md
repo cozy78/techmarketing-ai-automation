@@ -4,7 +4,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 
 ## UI Screenshot
 
-![TechMarketingUI](<Screenshots\Screenshot 2025-07-09 151757.png>)
+![TechMarketingUI](<Screenshots/Screenshot 2025-07-09 151757.png>)
 
 ---
 
@@ -41,11 +41,11 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Branchen-spezifische Optimierung
 * Lead-Capture Modal für E-Mail-Versand des generierten Contents als PDF
 
-![ContentGeneratorUI](<Screenshot 2025-07-09 160729.png>)
-![LeadCaptureModalUI](<Screenshot 2025-07-09 152301.png>)
-![MakeAuto](<Screenshot 2025-07-15 183420.png>)
-![MailAttachment](<Screenshot 2025-07-15 183358.png>)
-![SamplePDF](<Screenshot 2025-07-15 183601.png>)
+![ContentGeneratorUI](<Screenshots/Screenshot 2025-07-09 160729.png>)
+![LeadCaptureModalUI](<Screenshots/Screenshot 2025-07-09 152301.png>)
+![MakeAuto](<Screenshots/Screenshot 2025-07-15 183420.png>)
+![MailAttachment](<Screenshots/Screenshot 2025-07-15 183358.png>)
+![SamplePDF](<Screenshots/Screenshot 2025-07-15 183601.png>)
 
 ### 2. Lead Scoring
 
@@ -58,11 +58,11 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * HubSpot CRM Integration
 * Automatischer Erstkontakt via Mail in der passenden Tonalität
 
-![LeadScoringUI](<Screenshot 2025-07-09 151846.png>)
-![CalculatedScore](<Screenshot 2025-07-09 151926.png>)
-![MakeAuto](<Screenshot 2025-07-09 151958.png>)
-![HubspotListLogic](<Screenshot 2025-07-09 152120.png>)
-![EMailSend](<Screenshot 2025-07-15 183451.png>)
+![LeadScoringUI](<Screenshots/Screenshot 2025-07-09 151846.png>)
+![CalculatedScore](<Screenshots/Screenshot 2025-07-09 151926.png>)
+![MakeAuto](<Screenshots/Screenshot 2025-07-09 151958.png>)
+![HubspotListLogic](<Screenshots/Screenshot 2025-07-09 152120.png>)
+![EMailSend](<Screenshots/Screenshot 2025-07-15 183451.png>)
 
 ### 3. E-Mail Optimizer
 
@@ -71,7 +71,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Rollen-basierte Inhalte
 * (Automatischer E-Mail-Versand via Gmail) --> Version 2.0
 
-![EMailOptimizerUI](<Screenshot 2025-07-09 152651.png>)
+![EMailOptimizerUI](<Screenshots/Screenshot 2025-07-09 152651.png>)
 
 ### 4. Social Media Suite
 
@@ -80,13 +80,13 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Plattform-spezifische Formatierung
 * Bessere Features --> Version 2.0
 
-![SuiteUI](<Screenshot 2025-07-09 152726.png>)
+![SuiteUI](<Screenshots/Screenshot 2025-07-09 152726.png>)
 
 ---
 
 ## 🌐 Live Demo
 
-**Demo ansehen:** *(Optionaler Link)*
+**Demo ansehen:** *https://cozy78.github.io/techmarketing-ai-automation/
 
 **Zugangsdaten:**
 
@@ -104,7 +104,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Router → Verteilt nach Lead-Score
 * Gmail → Sendet angepasste E-Mails
 
-![MakeAuto](<Screenshot 2025-07-09 151958-1.png>)
+![MakeAuto](<Screenshots/Screenshot 2025-07-09 151958-1.png>)
 
 ### Content Generation + E-Mail
 
@@ -115,7 +115,7 @@ Eine KI-gestützte Marketing-Automatisierungsplattform, die technische Produktda
 * Google Drive → Teilt Dokument → PDF wird generiert
 * Gmail → Sendet E-Mail mit PDF im Anhang
 
-![MakeAuto](<Screenshot 2025-07-09 152512-1.png>)
+![MakeAuto](<Screenshots/Screenshot 2025-07-09 152512-1.png>)
 
 ### Google Workspace Verbindung
 
@@ -258,6 +258,7 @@ Echtzeit-Synchronisation
 * ✅ (OpenAI API Integration für echte KI-Texte)
 * ✅ A/B Testing Dashboard
 * ✅ Analytics Dashboard
+* ✅ Genereller Ausbau des Tools sowie den Automationen
 
 ---
 
